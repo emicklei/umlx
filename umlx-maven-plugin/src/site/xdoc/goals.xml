@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>Maven UMLX Plugin Goals</title>
+  </properties>
+  <body>
+    <goals>
+      <goal>
+        <name>maven-umlx-plugin:generate</name>
+        <description>
+        Runs the UMLX Generator and exports Class Diagrams in HTML, one for each package.
+        </description>
+      </goal>    
+      <goal>
+        <name>maven-umlx-plugin:report</name>
+        <description>
+        Creates a report with links to each generated Class Diagram.
+        </description>
+      </goal>
+    </goals>
+  </body>
+</document>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+  <bannerLeft>
+    <name>Maven</name>
+    <src>http://maven.apache.org/images/apache-maven-project.png</src>
+    <href>http://maven.apache.org/</href>
+  </bannerLeft>
+  <bannerRight>
+    <src>http://maven.apache.org/images/maven-small.gif</src>
+  </bannerRight>
+  <body>
+    <links>
+      <item name="PhilemonWorks" href="http://www.philemonworks.com"/>
+    </links>
+
+    <menu name="UMLX">
+      <item name="Introduction" href="index.html"/>
+      <item name="Download" href="downloads.html"/>
+      <item name="Release Notes" href="release-notes.html" />
+      <item name="General Information" href="about.html"/>
+	  <item name="Actions" href="actions.html" />
+	  <item name="Design" href="design.html" />
+	  <item name="Goals" href="goals.html" />
+	  <item name="Ant users" href="usingant.html" />
+    </menu>
+
+	${reports}
+
+  </body>
+</project>

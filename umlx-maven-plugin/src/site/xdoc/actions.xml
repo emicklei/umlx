@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>UMLX Generator Actions</title>
+  </properties>
+  <body>
+	<section name="Generation Actions">
+		<p>
+		The UMLX Generator first creates a complete UML Model structure with elements found by introspecting all compiled classes for a project.
+		This model contains elements such as Packages, Classes, Interfaces, Attributes and Operations.
+		</p>
+		<p>
+		By adding GenerationAction objects to the Generator, this model can then be reduced or extended according to some criteria.
+		For example, you may want to exclude all getters and setters from the Class diagram as this results in better readable diagrams.
+		In that case, use the RemoveGettersAndSettersAction which is represented by the <strong>removegettersandsetters</strong> tag.
+		If you want the generator to find associaton relations between classes from the project
+		then use the <strong>addassociations</strong> tag.
+		</p>			
+	</section>
+    <subsection name="action tags">
+      <table>
+        <tr>
+          <th>Tag</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+        	<td>addassociations</td>
+        	<td>Looks for Association relations between classes from the project. 
+        	Only one-to-one relations are found without further specification. 
+        	To help this action in finding one-to-many and many-to-many relations,
+        	you must add AssociationEnd objects to this action.
+			See <a href="#associationends">associations end</a> on how to specify association ends.
+			</td>
+        </tr>
+
+        <tr>
+        	<td>removeattribute</td>
+        	<td>Filter for attributes from classes and interfaces. 
+        	See <a href="#removeAction">remove action</a> for details about its attributes.        	
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td>removeclass</td>
+        	<td>Filter for classes from packages. 
+        	See <a href="#removeAction">remove action</a> for details about its attributes.        	
+        	</td>
+        </tr>
+
+        <tr>
+        	<td>removeinterface</td>
+        	<td>Filter for interfaces from packages. 
+        	See <a href="#removeAction">remove action</a> for details about its attributes.        	
+        	</td>
+        </tr>		  
+		  
+        <tr>
+        	<td>removegettersandsetters</td>
+        	<td>
+				Remove (generated) getter and setter methods by following the standard coding convention.
+				For example, if your class has a field named "customer" and this class has the methods "getCustomer" and "setCustomer" 
+				then these methods will be removed from the model. 
+				Using this action reduces your diagrams significantly thereby improving its readability.
+			</td>
+        </tr>
+
+		<tr>
+			<td>removegettersandsettersofprefixedattributes</td>
+        	<td>
+				Same as <strong>removegettersandsetters</strong> but with this action you can specify the prefix.
+				For example, if all your private fields names start with "_" (underscore) and you still want
+				to remove all getters and setters then use this action.
+			</td>
+		</tr>
+        
+        <tr>
+        	<td>removeinnerclasses</td>
+        	<td>
+				Remove all inner classes from the model.
+			</td>
+        </tr>
+
+        <tr>
+        	<td>removeconstructors</td>
+        	<td>
+				Remove all constructor operations from all classes.
+				These operations appear as <strong>class$(..)</strong> in each class element.
+			</td>
+        </tr>		                
+		    
+        <tr>
+        	<td>removeoperation</td>
+        	<td>Filter for operations from classes and interfaces. 
+        	See <a href="#removeAction">remove action</a> for details about its attributes.        	
+        	</td>
+        </tr>        
+
+        <tr>
+        	<td>removepackage</td>
+        	<td>Filter for packages from the project (actually the UML model). 
+        	See <a href="#removeAction">remove action</a> for details about its attributes.        	
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td>sortelements</td>
+        	<td>
+        	Applies alphabetical sorting to all elements in the UML Model:
+        	<ul>
+        		<li>Classes within a Package</li>
+        		<li>Attributes within a Class or Interface (static attributes)</li>
+        		<li>Operations within a Class or Interface</li>
+        	</ul>
+        	</td>
+        </tr>
+                
+      </table>
+    </subsection>
+        
+   <subsection name="remove action">
+   	<a name="removeaction"/>
+   	<p>
+	Use one of the following attributes to specify which elements will be removed from the model:
+		<ul>
+       		<li>name (for exact matches)</li>
+    		<li>prefix</li>
+    		<li>suffix</li>
+    		<li>pattern (uses standard String matcher)</li>
+	   	</ul> 
+	For example, if you want to exclude the <strong>serialVersionID</strong> attribute from all Classes, you write:
+	</p>
+	<source><![CDATA[
+<removeattribute name="serialVersionID" />	
+	]]></source>   	
+   </subsection>        
+        
+   <subsection name="association end">
+   <a name="associationends"/>
+   	<p>
+   	Without information about the element types of a collection attribute (such as customers:List),
+   	the AddAssocationsAction cannot resolve to-many associations.
+   	Because associations are important elements in an UML Class Diagram, there is a way
+   	to help the AddAssocationsAction in finding such associations in a package. 	
+   	</p>
+   	<source><![CDATA[
+<addassociations>
+	<end 
+	   containerType="Customer" 
+	   role="orders" 
+	   elementType="Order" 
+	   mulitplicy="*" />
+	<end 
+	   containerType="com.company.publisher.domain.Book" 
+	   role="chapters" 
+	   elementType="com.company.publisher.domain.Chapter" 
+	   mulitplicy="*" />
+</addassociations>
+	]]></source>   	
+		<table>
+			<tr>
+				<th>attribute</th>
+				<th>description</th>
+				<tr>
+					<td>containerType</td>
+					<td>Class or Interface. You can use the unqualified name when you are sure
+						this name is unique within your project.</td>
+				</tr>
+				<tr>
+					<td>role</td>
+					<td>name of the field from the containerType, it is the role of the
+						elementType</td>
+				</tr>
+				<tr>
+					<td>elementType</td>
+					<td>Class or Interface. You can use the unqualified name if you are sure
+						this name is unqiue within your project.</td>
+				</tr>
+				<tr>
+					<td>multiplicity</td>
+					<td>any UML specifier can be used here: *, 1..4, 1..*</td>
+				</tr>
+			</tr>
+		</table>
+   </subsection>        
+        
+  </body>
+</document>

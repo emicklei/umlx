@@ -1,0 +1,58 @@
+<project xmlns:j="jelly:core" xmlns:ant="jelly:ant" xmlns:doc="doc"> 
+	<goal name="umlx-maven1-plugin:generate" description="Run the UMLX Generator and create Class Diagrams in HTML"> 
+    	<ant:echo>umlx-maven1-plugin using ${philemon.umlx.jar}</ant:echo>
+    	<ant:echo>Invoking main(String[]) from ${maven.umlx.main}</ant:echo>   	
+    	<ant:java classname="${maven.umlx.main}" fork="true">
+    	
+<!--  	  <sysproperty 
+   			key="javax.xml.parsers.DocumentBuilderFactory" 
+   			value="org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+   			value="com.sun.org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" / -->
+   			
+    	  <ant:arg value="${maven.build.dest}" />
+    	  <ant:arg value="${maven.build.dir}/docs/umlx" />
+    	  <ant:classpath>
+     	    <ant:path path="${maven.plugin.dir}/${philemon.umlx.plugin}"/>
+		    <ant:path path="${basedir}"/>
+		    <ant:fileset file="${maven.repo.local}/log4j/jars/log4j-1.2.8.jar"/>
+		    <ant:fileset dir="${maven.repo.local}/philemon/jars">
+        		<include name="${philemon.utils.jar}"/>
+        		<include name="${umlx.generator.jar}"/>
+        	</ant:fileset>
+		  </ant:classpath>
+		</ant:java>
+    	<ant:echo>... Generator done!</ant:echo>   			
+	</goal> 		
+		
+	<goal name="umlx-maven1-plugin:report" description="Make a Report with references to the Class Diagrams"> 		
+		<attainGoal name="umlx-maven1-plugin:generate" />	
+		<ant:echo>Starting the Reporter...</ant:echo>  	
+    	<ant:java classname="com.philemonworks.umlx.maven.Reporter">
+    	  <ant:arg value="${maven.build.dir}/docs/umlx" />
+    	  <ant:arg value="${maven.gen.docs}" />
+    	  <ant:classpath>
+		    <ant:path path="${maven.plugin.dir}/${philemon.umlx.plugin}"/>
+		    <ant:fileset dir="${maven.repo.local}/log4j/jars">
+        		<include name="*.jar"/>
+      		</ant:fileset>
+		    <ant:fileset dir="${maven.repo.local}/philemon/jars">
+        		<include name="${philemon.utils.jar}"/>
+        	</ant:fileset>
+		  </ant:classpath>
+		</ant:java>		
+		<ant:echo>... Reporter done!</ant:echo>
+	</goal> 
+  
+	<goal name="umlx-maven1-plugin:register">
+	  <doc:registerReport 
+	    pluginName="umlx-maven1-plugin"
+	    name="UMLX"
+	    link="umlx-report"
+    	description="UML Class diagrams in HTML, one for each package." />
+	</goal>  
+	
+	<goal name="umlx-maven1-plugin:deregister">
+	  <doc:deregisterReport name="UMLX"/>
+	</goal>	
+	
+</project>

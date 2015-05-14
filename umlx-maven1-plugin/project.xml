@@ -1,0 +1,103 @@
+<project> 
+  <pomVersion>3</pomVersion> 
+  <artifactId>umlx-maven1-plugin</artifactId> 
+  <groupId>philemon</groupId> 
+  <name>Maven UMLX Plugin</name> 
+  <currentVersion>1.4.0</currentVersion> 
+
+	<organization>
+        <name>Philemon</name>
+        <url>http://www.philemonworks.com/</url>
+        <logo>http://www.philemonworks.com/images/logo_small.jpg</logo>
+    </organization>
+
+	<developers>
+	    <developer>
+			<name>Ernest Micklei</name>
+			<id>ernest</id>
+			<email>ernest.micklei@philemonworks.com</email>
+			<organization>PhilemonWorks</organization>
+		</developer>
+	</developers>
+
+  <description>Plugin that invokes the UMLX Generator</description>
+  
+	<dependencies>
+		<dependency>
+			<groupId>ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.6.5</version>
+		</dependency>		
+		<dependency>
+			<id>junit</id>
+			<version>3.8.1</version>
+		</dependency>		
+		<dependency>
+			<id>log4j</id>
+			<version>1.2.8</version>
+		</dependency>		
+  		<dependency>			  
+		  <groupId>philemon</groupId>
+		  <artifactId>philemon-utils</artifactId>
+		  <version>1.1.0</version>
+		</dependency>	
+		
+  		<dependency>			  
+		  <groupId>philemon</groupId>
+		  <artifactId>umlx-generator</artifactId>
+		  <version>1.4.0</version>
+		</dependency>	
+				
+	</dependencies> 
+ 
+  <build> 
+    <!-- This section is compulsory -->
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources> 
+      <resource> 
+        <directory>${basedir}/src/plugin-resources</directory> 
+		<includes> 
+			<include>**/*.png</include>
+			<include>**/*.properties</include>
+        </includes> 
+        <!-- targetPath>plugin-resources</targetPath --> 
+      </resource> 
+      <resource> 
+        <directory>${basedir}</directory> 
+        <includes> 
+          <include>plugin.jelly</include> 
+          <include>plugin.properties</include> 
+          <include>project.properties</include> 
+          <include>project.xml</include> 
+        </includes> 
+      </resource> 
+    </resources> 
+    <!-- Unit test cases --> 
+    <unitTestSourceDirectory>${basedir}/src/test/java</unitTestSourceDirectory> 
+    <unitTest> 
+      <resources><resource> 
+        <directory>${basedir}/src/test/java</directory> 
+        <includes><include>**/*</include></includes> 
+        <excludes><exclude>**/*.java</exclude></excludes> 
+      </resource></resources> 
+      <includes> 
+        <include>**/*Test.java</include> 
+      </includes> 
+    </unitTest> 	  
+  </build> 
+  
+  <reports>
+    <report>maven-changes-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <!-- report>maven-jcoverage-plugin</report -->
+    <report>maven-tasklist-plugin</report>
+	<report>maven-linkcheck-plugin</report>
+    <report>maven-pmd-plugin</report>
+	<report>maven-simian-plugin</report>  	  
+    <report>maven-umlx-plugin</report>
+  </reports>
+  
+</project>

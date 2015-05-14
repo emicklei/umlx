@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>UMLX Design</title>
+	</properties>
+	<body>
+		<section name="Layout">
+			<p> The UMLX generator exports Class Diagrams using a simplified layout. Most
+				UML tools provide graphical editing features to organize UML elements in a
+				diagram. Because the UMLX generator cannot compute such an organization of
+				elements, (this is a complete different challenge!) it uses a simple
+				table-based layout. For each Java package one diagram is generated. Each
+				diagram is composed of UML classes and interfaces and their direct
+				relations to other classes and interfaces. For each class, its UML
+				representation is shown on the left and all its relations to other elements
+				on the right. Relations can be inheritance (super and subclasses),
+				interfaces and associations. 
+			</p>
+		</section>
+		<section name="XML Export">
+			TOWRITE
+		</section>
+		<section name="SUMO">
+			TOWRITE
+		</section>		
+	</body>
+</document>

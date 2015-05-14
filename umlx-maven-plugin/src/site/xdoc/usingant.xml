@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>Ant Users</title>
+	</properties>
+	<body>
+		<section name="Ant Users">
+			<p> This plugin also bundles an Ant task for those developers that do not (yet) use Maven to build their system. 
+				The fragment below shows how this task could be used.
+			</p>
+			<p>
+				See <a href="actions.html">Generation Actions</a> for a list of available action tags and their description.
+			</p>			
+			  	  <source><![CDATA[
+<?xml version="1.0"?>
+<project name="ant-umlx-task" default="umlxgenerate" basedir=".">
+  <!-- this location should store the jars:	
+		maven-umlx-plugin#.#.#.jar log4j#.#.#.jar philemon-utils#.#.#.jar -->
+  <property name="umlx.jars" value="d:/java/lib"/>
+  
+  <path id="umlxpath">
+      <fileset dir="${umlx.jars}">
+        <include name="*.jar"/>
+      </fileset>
+  </path>
+    
+  <taskdef 
+	name="generator" 
+	classname="com.philemonworks.umlx.ant.GeneratorTask" 
+	classpathref="umlxpath"/>
+	    
+  <target name="umlxgenerate">
+    <generator classes="${basedir}/bin" todir="${basedir}/umlx" >
+    	<removeattribute name="serialVersionID" />
+    	<removeclass pattern=".*Input" />
+    	<removepackage name="sli.kim.classfile" />
+    	<removeoperation name="report" />
+    	<removeinnerclasses />
+		<removeconstructors />
+		<addassociations>
+			<end
+				containertype="Interface" 
+				role="operations" 
+				elementtype="Operation"
+				multiplicity="*" />
+		</addassociations>
+    	<sortelements />
+    </generator>
+  </target>
+</project>
+    	]]></source>
+			<p>
+				The property <strong>umlx.jars</strong> is the location of all required jars. 
+				Then the umlxpath refers to the path where the plugin jar and its dependencies can be found.
+			</p>
+		</section>	
+	</body>
+</document>

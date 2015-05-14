@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configuration for the UMLX generator, 
+	 See http://www.philemonworks.com/maven-umlx-plugin -->
+<generator>
+	<actions>
+		<removeoperation name="printXMLOn" />
+		<addassociations>
+			<end
+				containertype="Interface" 
+				role="operations" 
+				elementtype="Operation"
+				multiplicity="*" />
+			<end
+				containertype="com.philemonworks.umlx.elements.Interface" 
+				role="attributes" 
+				elementtype="com.philemonworks.umlx.elements.Attribute"
+				multiplicity="*" />
+			<end
+				containertype="com.philemonworks.umlx.elements.Interface" 
+				role="superInterfaces" 
+				elementtype="com.philemonworks.umlx.elements.Interface"
+				multiplicity="*" />
+			<end
+				containertype="com.philemonworks.umlx.elements.Operation" 
+				role="parameters" 
+				elementtype="com.philemonworks.umlx.elements.Parameter"
+				multiplicity="*" />								
+			<end
+				containertype="com.philemonworks.umlx.Generator" 
+				role="postGenerationActions" 
+				elementtype="com.philemonworks.umlx.action.GenerationAction"
+				multiplicity="*" />	
+			<end
+				containertype="com.philemonworks.umlx.elements.Model" 
+				role="packages" 
+				elementtype="com.philemonworks.umlx.elements.Package"
+				multiplicity="*" />	
+			<end
+				containertype="com.philemonworks.umlx.elements.Model" 
+				role="associations" 
+				elementtype="com.philemonworks.umlx.elements.Association"
+				multiplicity="*" />									
+		</addassociations>
+		<removeinnerclasses />
+		<removeconstructors />		
+		<removepackage name="sli.kim.classfile" />		
+		<sortelements />
+	</actions>
+</generator>
